@@ -1,8 +1,8 @@
 volumes:
-  primary_data: ./data/primary
-  standby_data: ./data/standby
-  metrics_data: ./data/metrics
-  grafana_data: ./data/grafana
+  primary_data: 
+  standby_data: 
+  metrics_data: 
+  grafana_data: 
 
 services:
   primary:
@@ -40,7 +40,7 @@ services:
     image: postgres:15
     volumes:
       - ./scripts:/var/lib/postgresql/scripts:ro
-    command: bash -c "until pg_isready -h primary; do sleep 1; done && while true ; do pgbench -P 60 -c 5 -R 2000 -T 36000 -f /var/lib/postgresql/scripts/custom_pgbench_test.sql  -h primary -U pgbench pgbench; done"
+    command: bash -c "until pg_isready -h primary; do sleep 1; done && while true ; do pgbench -P 60  -n -c 5 -R 2000 -T 36000 -f /var/lib/postgresql/scripts/custom_pgbench_test.sql  -h primary -U pgbench pgbench; done"
     depends_on: [ primary, standby ]
 
   # app2:

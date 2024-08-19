@@ -24,6 +24,7 @@ psql -v ON_ERROR_STOP=1 -U postgres -d postgres <<-EOSQL
 EOSQL
 
 cat >> ${PGDATA}/postgresql.conf <<EOF
+autovacuum = off
 listen_addresses = '*'
 shared_preload_libraries = 'pg_stat_statements'
 wal_level = logical
